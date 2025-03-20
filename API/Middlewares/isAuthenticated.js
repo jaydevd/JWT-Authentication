@@ -9,10 +9,12 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
-import jwt from 'jsonwebtoken';
-import User from '../Models/User.js';
+const jwt = require('jsonwebtoken');
+const { User } = require('./../Models/index.js');
+// import jwt from 'jsonwebtoken';
+// import User from '../Models/User.js';
 
-export default async function isAuthenticated(req, res, next) {
+async function isAuthenticated(req, res, next) {
 
     try {
         const secretKey = process.env.SECRET_KEY;
@@ -88,3 +90,5 @@ export default async function isAuthenticated(req, res, next) {
         console.log("Something went wrong");
     }
 }
+
+module.exports = isAuthenticated;

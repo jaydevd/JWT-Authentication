@@ -7,8 +7,9 @@
  * @description This file will import all middlewares.
  * @author Jaydev Dwivedi (Zignuts)
  */
-import isAuthenticated from "./isAuthenticated.js";
+const isAuthenticated = require('./isAuthenticated.js');
+// import isAuthenticated from "./isAuthenticated.js";
 
-export {
+module.exports = {
     isAuthenticated
 };
