@@ -1,8 +1,12 @@
+const express = require('express');
+const { sequelize } = require('./API/Config/index.js');
+
+const { router } = require('./API/Routes/index.js');
+require('dotenv/config.js');
 // import express from 'express';
-import express from 'express';
-import sequelize from './API/Config/index.js';
-import { router } from './API/Routes/index.js';
-import 'dotenv/config.js';
+// import sequelize from './API/Config/index.js';
+// import { router } from './API/Routes/index.js';
+// import 'dotenv/config.js';
 
 const app = express();
 
@@ -15,7 +19,7 @@ sequelize.sync().then(() => {
     console.error("Error syncing database:", err);
 });
 
-app.get('/user/login', router);
+app.use('/', router);
 
 const PORT = process.env.PORT || 5000;
 
