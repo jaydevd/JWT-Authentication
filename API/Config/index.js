@@ -6,5 +6,6 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
-import sequelize from './database';
-export default sequelize;
+const sequelize = require('./database');
+// import sequelize from './database';
+module.exports = { sequelize };

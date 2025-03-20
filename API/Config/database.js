@@ -6,13 +6,15 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
-import { Sequelize } from "sequelize";
-import { DB_DIALECT } from "./constants";
+// import { Sequelize } from "sequelize";
+// import { DB_DIALECT } from "./constants";
+const { Sequelize } = require("sequelize");
+const { DB_DIALECT } = require("./constants");
 
-const sequelizePost = new Sequelize(process.env.DB_NAME, process.env.DB_ADMIN, process.env.DB_ADMIN_PASSWORD, {
+const sequelize = new Sequelize('UserAuth', process.env.DB_ADMIN, process.env.DB_ADMIN_PASSWORD, {
     host: process.env.DB_HOST_NAME,
     PORT: process.env.DB_PORT,
-    dialect: DB_DIALECT,
+    dialect: 'postgres',
     logging: false
 });
 
@@ -24,4 +26,4 @@ const sequelizePost = new Sequelize(process.env.DB_NAME, process.env.DB_ADMIN, p
     }
 })();
 
-export default sequelize;
+module.exports = sequelize;

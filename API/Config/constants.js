@@ -6,7 +6,7 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
-export default {
+module.exports = {
     // all constants goes here.
     DB_DIALECT: "postgres"
 }
