@@ -8,35 +8,41 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
+const { DataTypes } = require("sequelize");
+
 const commonAttributes = {
     createdAt: {
         type: DataTypes.DATE,
+        defaultValue: Date.now(),
         allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING(60),
-        allowNull: false
+        allowNull: false,
+        defaultValue: "Jaydev Dwivedi"
     },
     isActive: {
         type: DataTypes.BOOLEAN,
-        default: true,
-        allowNull: false
+        allowNull: false,
+        defaultValue: true
     },
     isDeleted: {
         type: DataTypes.BOOLEAN,
-        default: true,
-        allowNull: false
+        defaultValue: false,
+        allowNull: true
     },
     updatedAt: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true,
+        defaultValue: Date.now()
     },
     updatedBy: {
         type: DataTypes.STRING(60),
-        allowNull: false
+        allowNull: false,
+        defaultValue: "Jaydev Dwivedi"
     }
 }
 
-export {
+module.exports = {
     commonAttributes
 }

@@ -7,8 +7,9 @@
  * @description This file will import all models.
  * @author Jaydev Dwivedi (Zignuts)
  */
-import { User } from './User.js';
+const { User } = require('./User.js');
+// import { User } from './User.js';
 
-export {
+module.exports = {
     User
 };

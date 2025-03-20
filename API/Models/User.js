@@ -6,9 +6,12 @@
  * @author Jaydev Dwivedi (Zignuts)
  */
 
-import { DataTypes } from "sequelize";
-import { sequelize } from "./../Config/index";
-import { commonAttributes } from './CommonAttributes.js';
+const { DataTypes } = require("sequelize");
+const { sequelize } = require('./../Config/index');
+// const { Sequelize } = require("sequelize");
+// import { sequelize } from "./../Config/index";
+const { commonAttributes } = require('./CommonAttributes.js');
+// const sequelize = new Sequelize();
 
 const User = sequelize.define("User", {
     id: {
@@ -26,8 +29,8 @@ const User = sequelize.define("User", {
         unique: true
     },
     token: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
+        type: DataTypes.STRING(500),
+        allowNull: true,
         unique: true,
     },
     password: {
@@ -42,4 +45,4 @@ const User = sequelize.define("User", {
         timestamps: false   // If your table does not have createdAt/updatedAt
     });
 
-export default User;
+module.exports = { User };
