@@ -1,3 +1,14 @@
+/**
+ * @name userAuthentication
+ * @file isAuthenticated.js
+ * @param {Request} req
+ * @param {Response} res
+ * @param {next} next
+ * @throwsF
+ * @description This file will import all middlewares.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
+
 import jwt from 'jsonwebtoken';
 import User from '../Models/User.js';
 
