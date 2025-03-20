@@ -7,10 +7,15 @@
  * @description UserSignUp method will create a new user, UserLogIn method will log in an existing user and UserLogOut method will log out the logged in user.
  * @author Jaydev Dwivedi (Zignuts)
  */
-import { v4 as uuidv4 } from 'uuid';
+const { v4: uuidv4 } = require('uuid');
+const Validator = require("validatorjs");
+const bcrypt = require('bcrypt');
+const { User } = require('./../Models/index');
+const jwt = require('jsonwebtoken');
 
 const UserSignUp = async (req, res) => {
 
+    // console.log("API Called");
     try {
         const { name, email, password } = req.body;
 
@@ -42,19 +47,14 @@ const UserSignUp = async (req, res) => {
 
         if (validation.fails()) {
             return res.json({
-                status: '500',
+                status: '400',
                 data: '',
-                message: 'Internal Server Error',
-                error: validator.errors.all()
+                message: 'Invalid Credentials',
+                error: validation.errors.all()
             })
         }
     } catch (error) {
-        res.json({
-            status: '500',
-            data: '',
-            message: 'Internal Server Error',
-            error: validator.errors.all()
-        })
+        console.log(error);
     }
 
 }
@@ -74,11 +74,12 @@ const UserLogIn = async (req, res) => {
         if (!user) res.json("User not found");
         // console.log("User: ", user.password);
 
-        const isMatch = await bcrypt.compare(verifyPassword, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
 
         // console.log('Comparison completed: ', isMatch);
 
         if (isMatch) {
+            console.log("Password matched");
             const secretKey = process.env.SECRET_KEY;
 
             const token = jwt.sign({
@@ -86,6 +87,7 @@ const UserLogIn = async (req, res) => {
                 name: user.name,
                 email: user.email
             }, secretKey, { expiresIn: '1h' });
+            console.log("token:", token);
 
             const result = await User.update(
                 { token: token },
@@ -95,9 +97,8 @@ const UserLogIn = async (req, res) => {
                     },
                 },
             );
-
             // console.log(result);
-            req.header('Authorization', `Bearer ${token}`);
+            res.set({ "Authorization": `Bearer ${token}` })
 
             return res.status(200).json({
                 status: '200',
@@ -116,8 +117,9 @@ const UserLogIn = async (req, res) => {
 
 const UserLogOut = async (req, res) => {
     try {
+        const headers = await req.headers.authorization;
+        console.log('req.headers.authorization: ', req.headers.authorization);
         const token = req.headers.authorization.split(' ')[1];
-        blacklist.add(token);
 
         if (!token) {
             res.json({
@@ -128,22 +130,17 @@ const UserLogOut = async (req, res) => {
             })
         }
 
-        res.status(200).json({
-            status: '200',
-            message: 'Logged out successfully',
-            data: '',
-            error: ''
-        });
+        res.removeHeader('Authorization');
 
-        const user = User.findOne({
+        const user = await User.findOne({
             where: { token: token },
-            attributes: ['id', 'name', 'email']
+            attributes: ['id', 'name', 'email', 'token']
         });
 
         if (token === user.token) {
-            user.token = null;
+            const result = await User.update({ token: null }, { where: { id: user.id } });
 
-            return res.json({
+            res.json({
                 status: '200',
                 message: 'Logged out successfully',
                 data: '',
@@ -160,11 +157,11 @@ const UserLogOut = async (req, res) => {
         }
 
     } catch (error) {
-        console.log("Something went wrong");
+        console.log("Something went wrong", error);
     }
 }
 
-export {
+module.exports = {
     UserLogIn,
     UserLogOut, UserSignUp
 };

@@ -5,9 +5,10 @@
  * @description This file will import all the controllers in the API.
  * @author Jaydev Dwivedi (Zignuts)
  */
-import { UserLogIn, UserLogOut, UserSignUp } from 'UserAuthController';
+const { UserLogIn, UserLogOut, UserSignUp } = require('./UserAuthController');
+// import { UserLogIn, UserLogOut, UserSignUp } from 'UserAuthController';
 
-export {
+module.exports = {
     UserLogIn,
     UserLogOut,
     UserSignUp
