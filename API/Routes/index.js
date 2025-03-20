@@ -1,7 +1,12 @@
-import { UserLogIn, UserLogOut, UserSignUp } from 'userAuth.js';
+/**
+ * @name routesIndex
+ * @file index.js
+ * @throwsF
+ * @description This file will import all routes.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
+import router from '../Routes/UserAuthRoutes.js';
 
-module.exports = {
-    UserSignUp,
-    UserLogIn,
-    UserLogOut
+export {
+    router
 }
