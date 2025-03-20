@@ -1,9 +1,18 @@
-const { Sequelize } = require("sequelize");
+/**
+ * @name sequelize
+ * @file database.js
+ * @throwsF
+ * @description This file will configure database.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_ADMIN, process.env.DB_ADMIN_PASSWORD, {
+import { Sequelize } from "sequelize";
+import { DB_DIALECT } from "./constants";
+
+const sequelizePost = new Sequelize(process.env.DB_NAME, process.env.DB_ADMIN, process.env.DB_ADMIN_PASSWORD, {
     host: process.env.DB_HOST_NAME,
     PORT: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT,
+    dialect: DB_DIALECT,
     logging: false
 });
 
@@ -15,4 +24,4 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_ADMIN, proce
     }
 })();
 
-module.exports = sequelize;
+export default sequelize;

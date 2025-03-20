@@ -1,7 +1,10 @@
-import { sequelize } from './database';
-import {constants} from './constants';
+/**
+ * @name index
+ * @file index.js
+ * @throwsF
+ * @description This file will import all configs.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
 
-module.exports = {
-    sequelize,
-    constants
-}
+import sequelize from './database';
+export default sequelize;
