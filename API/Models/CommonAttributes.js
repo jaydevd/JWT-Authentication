@@ -1,4 +1,14 @@
-const attributes = {
+/**
+ * @name commonAttributes
+ * @file CommonAttributes.js
+ * @param {Request} req
+ * @param {Response} res
+ * @throwsF
+ * @description This file contains all common attributes used across the tables.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
+
+const commonAttributes = {
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false
@@ -27,6 +37,6 @@ const attributes = {
     }
 }
 
-module.exports = {
-    attributes
+export {
+    commonAttributes
 }

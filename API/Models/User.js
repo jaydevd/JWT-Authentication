@@ -1,6 +1,14 @@
-const { DataTypes, DATE } = require("sequelize");
-const sequelize = require("../Config/database");
-import { attributes } from './CommonAttributes.js';
+/**
+ * @name userModel
+ * @file User.js
+ * @throwsF
+ * @description This file will define model of Users table.
+ * @author Jaydev Dwivedi (Zignuts)
+ */
+
+import { DataTypes } from "sequelize";
+import { sequelize } from "./../Config/index";
+import { commonAttributes } from './CommonAttributes.js';
 
 const User = sequelize.define("User", {
     id: {
@@ -27,11 +35,11 @@ const User = sequelize.define("User", {
         allowNull: false,
         unique: false
     },
-    ...attributes
+    ...commonAttributes
 },
     {
         tableName: "users", // Explicitly set the table name
         timestamps: false   // If your table does not have createdAt/updatedAt
     });
 
-module.exports = User;
+export default User;
